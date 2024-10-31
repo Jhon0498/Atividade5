@@ -1,0 +1,31 @@
+<!-- templates/404.html -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Página Não Encontrada</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 150px;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 50px;
+        }
+        body {
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>404</h1>
+    <h2>Ops! A página que você está procurando não foi encontrada.</h2>
+    <p>
+        Você pode voltar para a <a href="{{ url_for('hello_world') }}">página inicial</a>.
+    </p>
+</body>
+</html>
