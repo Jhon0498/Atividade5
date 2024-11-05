@@ -1,13 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minha Aplicação</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
-<!-- Vai extender os blocks? -->
+    <form method="POST">
+        <label for="nome">Informe o seu nome:</label>
+        <input type="Informe seu nome" name="nome" id="nome"><br>
 
-{% extends "base.html" %}
-{% block title %}Eu sou um titulo feito não pela Extensão! {% endblock %}
-{% block head %}
-    {{ super() }}
-    <style>
-    </style>
-{% endblock %}
-{% block body %}
-<h1> Hello, World!</h1>
-{% endblock %}
+        <label for="sobrenome">Informe o seu sobrenome:</label>
+        <input type="Informe seu sobrenome" name="sobrenome" id="sobrenome"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

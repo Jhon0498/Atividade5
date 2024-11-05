@@ -1,42 +1,62 @@
 {% extends "/bootstrap/template-base.html" %}
 
-{% block title %}FORMULÁRIO! :){% endblock %}
+{% block title %}FORMULÁRIO! :) {% endblock %}
 
 {% block head %}
    {{ super() }}
-{% endblock %}
 
+
+
+{% endblock %}
 
 {% block body %}
     {{ super() }}
-    <body>
-        <div class="container"></div>
-            {% for message in get_flashed_messages() %}
+    <div class="container">
+        {% for message in get_flashed_messages() %}
             <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert">&times</button>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
                 {{ message }}
             </div>
-            {% endfor %}
-        </div>
-    {% block content %}
-        <h1>Hello, {% if name %}{{ name }}{% else %}Usuário{% endif %}!</h1><br><br>
+        {% endfor %}
 
-    <form method = "POST">
-        {{ form.hidden_tag() }}
-        {{ form.name.label }} {{ form.name(id='nomeId', class="form-control") }}
-        {{ form.submit(class="btn btn-primary") }}
-    </form>
+        {% block content %}
+            <h1>Hello, {% if name %}{{ name }}{% else %}Usuário{% endif %} {{ sobreNome }}!</h1><br><br>
+            <h5>Instituição: {% if inst %}{{ inst }}{% else %}Desconhecido{% endif %}</h5><br>
+            <h5>Disciplina: {% if disciplina %}{{ disciplina }}{% else %}Desconhecido{% endif %}</h5><br>
 
-    {% endblock %}
+            <h1>Dados pelo Contexto!</h1><br>
+            <h3>Browser: {% if browser %}{{ browser }}{% else %}Não analisado{% endif %}</h3><br>
+            <h3>IP Cliente: {% if ip_remoto %}{{ ip_remoto }}{% else %}Não analisado{% endif %}</h3><br>
+            <h3>Host: {% if host_name %}{{ host_name }}{% else %}Não analisado{% endif %}</h3><br>
 
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.name.label }} {{ form.name(id='nomeId', class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.sobreNome.label }} {{ form.sobreNome(id='sobreId', class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.inst.label }} {{ form.inst(id='instId', class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.disciplina.label }} {{ form.disciplina(id='disId', class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        {% endblock %}
 
-    {% block script %}
-        <!-- Optional JavaScript -->
+        {% block footer %}
+            <h5>Horário: {{ moment(current_time).format('LLL') }}</h5>
+            <h6>Acessou em: {{ moment(current_time).fromNow(refresh=true) }}</h6>
+        {% endblock %}
+    </div>
+{% endblock %}
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-        {{ moment.include_moment() }}
-    {% endblock %}
-
-    </body>
-
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    {{ moment.include_moment() }}
 {% endblock %}
